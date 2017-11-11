@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/easyui.css" />
+		<link rel="stylesheet" type="text/css" href="icon.css" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="demo.css"/>
+		<link rel="stylesheet" type="text/css" href="style.css"/>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+		
+	</head>
+
+	<body>
+		<div class="container">			
+				<div id="p" class="easyui-panel box" title="计算器" style="width:600px;height:200px;padding:10px;" data-options="iconCls:'icon-save',collapsible:true,minimizable:true,maximizable:true,closable:true">
+					<div id="screen">
+						
+					</div>
+					<div class="btng">
+						<ul id="btns">
+							<li>1</li>
+							<li>2</li>
+							<li>3</li>
+							<li>4</li>
+							<li>5</li>
+							<li>6</li>
+							<li>7</li>
+							<li>8</li>
+							<li>9</li>
+							<li>0</li>
+							<span id="clear">c</span>
+							<span id="back"><-</span>
+						</ul>
+						<ul id="ops">
+							<li class="op">+</li>
+							<li class="op">-</li>
+							<li class="op">*</li>
+							<li class="op">/</li>
+							<li class="op">(</li>
+							<li class="op">)</li>
+							<li class="op">cos</li>
+							<li class="op">sin</li>
+							<li class="op">tan</li>
+							<li class="op">PI</li>
+							<li id="ok">=</li>
+						</ul>
+					</div>
+				</div>		
+		</div>
+		<script type="text/javascript">
+			var temp = '',tempCal = '';
+			$('#btns li').on('click',function(){				
+				temp += $(this).text();
+				tempCal += $(this).text()
+				$('#screen').text(temp);
+			});
+			$('#ops .op').on('click',function(){
+				var op = $(this).text();
+				if(op=='cos'){
+					op = 'Math.cos';
+				}
+				else if(op=='sin'){
+					op = 'Math.sin';
+				}
+				else if(op=='tan'){
+					op = 'Math.tan';
+				}
+				else if(op == 'PI'){
+					op = 'Math.PI';
+				}
+				tempCal += op;
+				temp += $(this).text();
+				$('#screen').text(temp);
+			});
+			$('#ok').on('click',function(){
+				$('#screen').text(temp+'='+eval(tempCal));
+			});
+			$('#clear').on('click',function(){
+				temp = '';
+				tempCal = '';
+				$('#screen').text('');
+			});
+			$('#back').on('click',function(){
+				temp = temp.substring(0,temp.length-1);
+				tempCal = tempCal.substring(0,tempCal.length-1);
+				$('#screen').text(temp);
+			});
+		</script>
+	</body>
+
+</html>
